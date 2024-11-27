@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  playerSpeed: 2
+  playerSpeed: 500
 --- !u!50 &863416166
 Rigidbody2D:
   serializedVersion: 5

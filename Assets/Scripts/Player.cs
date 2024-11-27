@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
     // Players overall speed
     [SerializeField] private float playerSpeed;
 
+    // Player Positions
+    private float playerPosY = 4.0f;
+    private float playerPosX = 7.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -25,10 +29,30 @@ public class Player : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
     }
 
+    private void Update()
+    {
+        PlayerPosConstraints();
+    }
+
     private void FixedUpdate()
     {
         // Read Move value as vector2 and apply rb2d velocity to make player move
         moveValue = moveAction.ReadValue<Vector2>();
-        rb2d.linearVelocity = moveValue * playerSpeed;
+        rb2d.linearVelocity = playerSpeed * Time.fixedDeltaTime * moveValue;
+    }
+
+    private void PlayerPosConstraints()
+    {
+        // Player cannot go higher than screen dimensions
+        if (this.transform.position.y < -playerPosY)
+        {
+            this.transform.position = new Vector2(-playerPosX, -playerPosY);
+        }
+
+        // Player cannot go lower than screen dimensions
+        if (this.transform.position.y > playerPosY)
+        {
+            this.transform.position = new Vector2(-playerPosX, playerPosY);
+        }
     }
 }
