@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     // Player rigidbody2D
-    [SerializeField] private Rigidbody2D rb2d;
+    private Rigidbody2D rb2d;
 
     // Player Inputs
     private InputAction moveAction;
@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private Vector2 moveValue;
 
     // Players overall speed
-    [SerializeField] private float playerSpeed;
+    private float playerSpeed = 500.0f;
 
     // Player Positions
     private float playerPosY = 4.0f;
