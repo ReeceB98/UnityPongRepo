@@ -17,12 +17,14 @@ public class Ball : MonoBehaviour
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+
+        moveValue = new Vector2(-1.0f, 0.0f);
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        moveValue = new Vector2(-1.0f, 0.0f);
+        //moveValue = new Vector2(-1.0f, 0.0f);
         rb2d.linearVelocity = ballSpeed * Time.fixedDeltaTime * moveValue;
     }
 }
