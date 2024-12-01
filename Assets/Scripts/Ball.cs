@@ -34,7 +34,8 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //Debug.Log("Collision Detected");
-            moveValue = new Vector2(1.0f, -1.0f);
+            //moveValue = new Vector2(1.0f, -1.0f);
+            //CurrentMoveValue(1.0f, -1.0f);
             isPlayerShot = true;
         }
 
@@ -56,7 +57,8 @@ public class Ball : MonoBehaviour
         if (directionY < 0.0f)
         {
             //Debug.Log("Hit the bottom of player");
-            moveValue = new Vector2(1.0f, -1.0f);
+            CurrentMoveValue(1.0f, 1.0f);
+            //moveValue = new Vector2(1.0f, -1.0f);
         }
 
         if (directionY == 0.0f)
@@ -69,5 +71,10 @@ public class Ball : MonoBehaviour
             //Debug.Log("Hit the top of player");
             moveValue = new Vector2(1.0f, 1.0f);
         }
+    }
+
+    public void CurrentMoveValue(float x, float y)
+    {
+        moveValue = new Vector2(x, y);
     }
 }
