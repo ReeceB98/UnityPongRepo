@@ -50,6 +50,24 @@ public class Ball : MonoBehaviour
             moveValue = new Vector2(1.0f, 1.0f);
             isPlayerShot = false;
         }
-        float directionX = (this.transform.position.y - collision.transform.position.y) / collision.gameObject.GetComponent<Collider2D>().bounds.size.y;
+
+        float directionY = (this.transform.position.y - collision.transform.position.y) / collision.gameObject.GetComponent<Collider2D>().bounds.size.y;
+
+        if (directionY < 0.0f)
+        {
+            //Debug.Log("Hit the bottom of player");
+            moveValue = new Vector2(1.0f, -1.0f);
+        }
+
+        if (directionY == 0.0f)
+        {
+            Debug.Log("Hit the middle of player");
+        }
+
+        if (directionY > 0.0f)
+        {
+            //Debug.Log("Hit the top of player");
+            moveValue = new Vector2(1.0f, 1.0f);
+        }
     }
 }
