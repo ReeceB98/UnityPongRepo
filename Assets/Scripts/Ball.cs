@@ -95,4 +95,9 @@ public class Ball : MonoBehaviour
             CurrentMoveValue(1.0f, 1.0f);
         }
     }
+
+    private void ComputerCollisionDetection(Collision2D collision)
+    {
+
+    }
 }

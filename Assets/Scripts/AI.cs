@@ -39,13 +39,13 @@ public class AI : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "Ball")
-        {
-            //Debug.Log("Computer Hit");
-            //ball.moveValue = new Vector2(-1.0f, -1.0f);
-            ball.CurrentMoveValue(-1.0f, -1.0f);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.name == "Ball")
+    //    {
+    //        //Debug.Log("Computer Hit");
+    //        //ball.moveValue = new Vector2(-1.0f, -1.0f);
+    //        ball.CurrentMoveValue(-1.0f, -1.0f);
+    //    }
+    //}
 }
