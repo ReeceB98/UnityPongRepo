@@ -520,8 +520,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballSpeed: 200
-  moveValue: {x: 0, y: 0}
-  isPlayerShot: 0
 --- !u!61 &606277159
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -9,9 +9,10 @@ public class Ball : MonoBehaviour
     [SerializeField] private float ballSpeed;
 
     // Ball direction using vectors
-    [SerializeField] private Vector2 moveValue;
+    private Vector2 moveValue;
 
-    [SerializeField] private bool isPlayerShot = false;
+    // Indicates if the player took a shot at the ball
+    private bool isPlayerShot = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,37 +33,11 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "TopBarrier" && isPlayerShot)
-        {
-            isPlayerShot = false;
-            CurrentMoveValue(1.0f, -1.0f);
-        }
+        // Detects if the ball hits either barrier in the game
+        BarrierCollisionDetection(collision);
 
-        if (collision.gameObject.name == "BottomBarrier" && isPlayerShot)
-        {
-            isPlayerShot = false;
-            CurrentMoveValue(1.0f, 1.0f);
-        }
-
-        float directionY = (this.transform.position.y - collision.transform.position.y) / collision.gameObject.GetComponent<Collider2D>().bounds.size.y;
-
-        if (directionY < 0.0f)
-        {
-            isPlayerShot = true;
-            CurrentMoveValue(1.0f, -1.0f);
-        }
-
-        if (directionY == 0.0f)
-        {
-            //Debug.Log("Hit the middle of player");
-            CurrentMoveValue(1.0f, -0.25f);
-        }
-
-        if (directionY > 0.0f)
-        {
-            isPlayerShot = true;
-            CurrentMoveValue(1.0f, 1.0f);
-        }
+        // Detects if the ball hits the surface area of the player
+        PlayerCollisionDetection(collision);
     }
 
     public void CurrentMoveValue(float x, float y)
@@ -73,5 +48,51 @@ public class Ball : MonoBehaviour
     private void BallVelocity()
     {
         rb2d.linearVelocity = ballSpeed * Time.fixedDeltaTime * moveValue;
+    }
+
+    private void BarrierCollisionDetection(Collision2D collision)
+    {
+        // Ball hits the top barrier
+        if (collision.gameObject.name == "TopBarrier" && isPlayerShot)
+        {
+            isPlayerShot = false;
+            CurrentMoveValue(1.0f, -1.0f);
+        }
+
+        // Ball hits bottom barrier
+        if (collision.gameObject.name == "BottomBarrier" && isPlayerShot)
+        {
+            isPlayerShot = false;
+            CurrentMoveValue(1.0f, 1.0f);
+        }
+    }
+
+    private void PlayerCollisionDetection(Collision2D collision)
+    {
+        Vector2 ballPos = this.transform.position;
+        Vector2 playerPos = collision.transform.position;
+
+        // Calculates the direction the ball will go when colliding with the player
+        float directionY = (ballPos.y - playerPos.y) / collision.gameObject.GetComponent<Collider2D>().bounds.size.y;
+
+        // Ball will go upwards
+        if (directionY < 0.0f)
+        {
+            isPlayerShot = true;
+            CurrentMoveValue(1.0f, -1.0f);
+        }
+
+        // Ball will either slighly go up or down
+        if (directionY == 0.0f)
+        {
+            CurrentMoveValue(1.0f, -0.25f);
+        }
+
+        // Ball will go downwards
+        if (directionY > 0.0f)
+        {
+            isPlayerShot = true;
+            CurrentMoveValue(1.0f, 1.0f);
+        }
     }
 }
