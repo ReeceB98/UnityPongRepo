@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private float ballSpeed;
 
     // Ball direction using vectors
-    private Vector2 moveValue;
+    [SerializeField] private Vector2 moveValue;
 
     [SerializeField] private bool isPlayerShot = false;
 
@@ -17,64 +17,61 @@ public class Ball : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        // Get all key components
         rb2d = GetComponent<Rigidbody2D>();
 
-        moveValue = new Vector2(-1.0f, 0.0f);
+        //Initial ball movement at start
+        CurrentMoveValue(-1.0f, 0.0f);
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        //moveValue = new Vector2(-1.0f, 0.0f);
-        rb2d.linearVelocity = ballSpeed * Time.fixedDeltaTime * moveValue;
+        BallVelocity();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //Debug.Log("Collision Detected");
-            //moveValue = new Vector2(1.0f, -1.0f);
-            //CurrentMoveValue(1.0f, -1.0f);
-            isPlayerShot = true;
-        }
-
         if (collision.gameObject.name == "TopBarrier" && isPlayerShot)
         {
-            //Debug.Log("Collision Detected");
-            moveValue = new Vector2(1.0f, -1.0f);
             isPlayerShot = false;
+            CurrentMoveValue(1.0f, -1.0f);
         }
 
         if (collision.gameObject.name == "BottomBarrier" && isPlayerShot)
         {
-            moveValue = new Vector2(1.0f, 1.0f);
             isPlayerShot = false;
+            CurrentMoveValue(1.0f, 1.0f);
         }
 
         float directionY = (this.transform.position.y - collision.transform.position.y) / collision.gameObject.GetComponent<Collider2D>().bounds.size.y;
 
         if (directionY < 0.0f)
         {
-            //Debug.Log("Hit the bottom of player");
-            CurrentMoveValue(1.0f, 1.0f);
-            //moveValue = new Vector2(1.0f, -1.0f);
+            isPlayerShot = true;
+            CurrentMoveValue(1.0f, -1.0f);
         }
 
         if (directionY == 0.0f)
         {
-            Debug.Log("Hit the middle of player");
+            //Debug.Log("Hit the middle of player");
+            CurrentMoveValue(1.0f, -0.25f);
         }
 
         if (directionY > 0.0f)
         {
-            //Debug.Log("Hit the top of player");
-            moveValue = new Vector2(1.0f, 1.0f);
+            isPlayerShot = true;
+            CurrentMoveValue(1.0f, 1.0f);
         }
     }
 
     public void CurrentMoveValue(float x, float y)
     {
         moveValue = new Vector2(x, y);
+    }
+
+    private void BallVelocity()
+    {
+        rb2d.linearVelocity = ballSpeed * Time.fixedDeltaTime * moveValue;
     }
 }

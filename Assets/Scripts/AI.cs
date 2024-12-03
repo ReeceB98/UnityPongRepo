@@ -43,7 +43,7 @@ public class AI : MonoBehaviour
     {
         if (collision.gameObject.name == "Ball")
         {
-            Debug.Log("Computer Hit");
+            //Debug.Log("Computer Hit");
             //ball.moveValue = new Vector2(-1.0f, -1.0f);
             ball.CurrentMoveValue(-1.0f, -1.0f);
         }
