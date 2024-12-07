@@ -16,7 +16,8 @@ public class Ball : MonoBehaviour
     private bool isCompShot = false;
 
     // Directional values
-    private float up = 1.0f, down = -1.0f, right = 1.0f, left = -1.0f;
+    //private float up = Random.Range(0.3f, 1.0f), down = Random.Range(-0.3f, -1.0f), right = 1.0f, left = -1.0f;
+    private float up, down, right, left;
 
     private float zero = 0.0f;
 
@@ -24,6 +25,11 @@ public class Ball : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        up = Random.Range(0.3f, 1.0f);
+        down = Random.Range(-0.3f, -1.0f);
+        right = 1.0f; 
+        left = -1.0f;
+
         // Get all key components
         rb2d = GetComponent<Rigidbody2D>();
 
@@ -134,5 +140,10 @@ public class Ball : MonoBehaviour
             isCompShot = true;
             CurrentMoveValue(left, up);
         }
+    }
+
+    private float RandomisedValue(float min, float max)
+    {
+        return Random.Range(min, max);
     }
 }
