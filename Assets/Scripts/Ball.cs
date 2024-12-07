@@ -12,7 +12,8 @@ public class Ball : MonoBehaviour
     private Vector2 moveValue;
 
     // Indicates if the player took a shot at the ball
-    private bool isPlayerShot = false;
+    [SerializeField] private bool isPlayerShot = false;
+    [SerializeField] private bool isCompShot = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,15 +56,27 @@ public class Ball : MonoBehaviour
         // Ball hits the top barrier
         if (collision.gameObject.name == "TopBarrier" && isPlayerShot)
         {
-            isPlayerShot = false;
+            //isPlayerShot = false;
             CurrentMoveValue(1.0f, -1.0f);
+        }
+
+        if (collision.gameObject.name == "TopBarrier" && isCompShot)
+        {
+            //isCompShot = false;
+            CurrentMoveValue(-1.0f, -1.0f);
         }
 
         // Ball hits bottom barrier
         if (collision.gameObject.name == "BottomBarrier" && isPlayerShot)
         {
-            isPlayerShot = false;
+            //isPlayerShot = false;
             CurrentMoveValue(1.0f, 1.0f);
+        }
+
+        if (collision.gameObject.name == "BottomBarrier" && isCompShot)
+        {
+            //isCompShot = false;
+            CurrentMoveValue(-1.0f, 1.0f);
         }
     }
 
@@ -76,28 +89,44 @@ public class Ball : MonoBehaviour
         float directionY = (ballPos.y - playerPos.y) / collision.gameObject.GetComponent<Collider2D>().bounds.size.y;
 
         // Ball will go upwards
-        if (directionY < 0.0f)
+        if (collision.gameObject.CompareTag("Player") && directionY < 0.0f /*&& playerPos.x < 0.0f*/)
         {
+            Debug.Log("Player Collision");
             isPlayerShot = true;
+            isCompShot = false;
             CurrentMoveValue(1.0f, -1.0f);
+        }
+
+        if (collision.gameObject.CompareTag("Computer") && directionY < 0.0f /*&& ballPos.x > 0.0f*/)
+        {
+            Debug.Log("Computer Collision");
+            CurrentMoveValue(-1.0f, -1.0f);
+            isPlayerShot = false;
+            isCompShot = true;
         }
 
         // Ball will either slighly go up or down
         if (directionY == 0.0f)
         {
+            Debug.Log("Player Collision");
             CurrentMoveValue(1.0f, -0.25f);
         }
 
         // Ball will go downwards
-        if (directionY > 0.0f)
+        if (collision.gameObject.CompareTag("Player") && directionY > 0.0f /*&& playerPos.x < 0.0f*/)
         {
+            Debug.Log("Player Collision");
             isPlayerShot = true;
+            isCompShot = false;
             CurrentMoveValue(1.0f, 1.0f);
         }
-    }
 
-    private void ComputerCollisionDetection(Collision2D collision)
-    {
-
+        if (collision.gameObject.CompareTag("Computer") && directionY > 0.0f /*&& ballPos.x > 0.0f*/)
+        {
+            Debug.Log("Computer Collision");
+            CurrentMoveValue(-1.0f, 1.0f);
+            isPlayerShot = false;
+            isCompShot = true;
+        }
     }
 }
