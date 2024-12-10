@@ -16,9 +16,10 @@ public class Ball : MonoBehaviour
     private bool isCompShot = false;
 
     // Directional values
-    private float up = 1.0f, down = -1.0f, right = 1.0f, left = -1.0f;
+    private float up, down, right = 1.0f, left = -1.0f;
 
     private float zero = 0.0f;
+    private float midpoint;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,6 +30,14 @@ public class Ball : MonoBehaviour
 
         //Initial ball movement at start
         CurrentMoveValue(left, zero);
+    }
+
+    private void Update()
+    {
+        // Random number for the ball vector y to make the game more unpredictable
+        up = Random.Range(0.3f, 1.0f);
+        down = Random.Range(-0.3f, -1.0f);
+        midpoint = Random.Range(-0.25f, 0.25f);
     }
 
     // Update is called once per frame
@@ -110,13 +119,13 @@ public class Ball : MonoBehaviour
         // Ball will either slighly go up or down when player takes a shot
         if (collision.gameObject.CompareTag("Player") && directionY == zero)
         {
-            CurrentMoveValue(right, -0.25f);
+            CurrentMoveValue(right, midpoint);
         }
 
         // Ball will either slighly go up or down when computer takes a shot
         if (collision.gameObject.CompareTag("Computer") && directionY == zero)
         {
-            CurrentMoveValue(left, -0.25f);
+            CurrentMoveValue(left, midpoint);
         }
 
         // Ball will go downwards when player takes the shot
