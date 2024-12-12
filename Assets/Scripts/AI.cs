@@ -2,28 +2,23 @@ using UnityEngine;
 
 public class AI : MonoBehaviour
 {
-    [SerializeField] private Transform ballTransform;
+    private Transform ballTransform;
 
     [SerializeField] private float aiSpeed;
 
-    [SerializeField] private Rigidbody2D rb2d;
+    private Rigidbody2D rb2d;
 
     private Ball ball;
 
-    [SerializeField] private bool isCompOn;
+    private bool isCompOn = true;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         ball = GameObject.FindFirstObjectByType<Ball>();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        //float step = aiSpeed * Time.deltaTime;
-        //transform.position = Vector2.MoveTowards(rb2d.position, ballTransform.position, step);
+        ballTransform = GameObject.Find("Ball").transform;
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -43,14 +38,4 @@ public class AI : MonoBehaviour
             }
         }
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.name == "Ball")
-    //    {
-    //        //Debug.Log("Computer Hit");
-    //        //ball.moveValue = new Vector2(-1.0f, -1.0f);
-    //        ball.CurrentMoveValue(-1.0f, -1.0f);
-    //    }
-    //}
 }

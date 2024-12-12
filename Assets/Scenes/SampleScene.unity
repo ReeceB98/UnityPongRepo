@@ -1647,9 +1647,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c012c4a5bc3519c4690c6199a85b4085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballTransform: {fileID: 606277156}
+  ballTransform: {fileID: 0}
   aiSpeed: 200
-  rb2d: {fileID: 1647249968}
+  rb2d: {fileID: 0}
   isCompOn: 1
 --- !u!50 &1647249968
 Rigidbody2D:
