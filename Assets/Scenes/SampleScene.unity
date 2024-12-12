@@ -1052,6 +1052,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerGoal: {fileID: 0}
   computerGoal: {fileID: 0}
+  playerScore: 0
+  compScore: 0
+  playerScoreText: {fileID: 442254164}
+  compScoreText: {fileID: 259591280}
 --- !u!4 &815919296
 Transform:
   m_ObjectHideFlags: 0
@@ -1646,6 +1650,7 @@ MonoBehaviour:
   ballTransform: {fileID: 606277156}
   aiSpeed: 200
   rb2d: {fileID: 1647249968}
+  isCompOn: 1
 --- !u!50 &1647249968
 Rigidbody2D:
   serializedVersion: 5

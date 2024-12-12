@@ -21,12 +21,14 @@ public class Ball : MonoBehaviour
     private float zero = 0.0f;
     private float midpoint;
 
+    private ScoreManager scoreManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         // Get all key components
         rb2d = GetComponent<Rigidbody2D>();
+        scoreManager = GameObject.FindFirstObjectByType<ScoreManager>();
 
         //Initial ball movement at start
         CurrentMoveValue(left, zero);
@@ -156,11 +158,13 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.name == "PlayerGoal")
         {
             Debug.Log("Player's Goal");
+            scoreManager.SetComputerScore(1);
         }
 
         if (collision.gameObject.name == "ComputerGoal")
         {
             Debug.Log("Computer's Goal");
+            scoreManager.SetPlayerScore(1);
         }
     }
 }
