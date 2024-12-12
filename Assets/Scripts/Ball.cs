@@ -53,6 +53,12 @@ public class Ball : MonoBehaviour
 
         // Detects if the ball hits the surface area of the player
         PlayerCollisionDetection(collision);
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GoalCollisionDetection(collision);
     }
 
     public void CurrentMoveValue(float x, float y)
@@ -142,6 +148,19 @@ public class Ball : MonoBehaviour
             isPlayerShot = false;
             isCompShot = true;
             CurrentMoveValue(left, up);
+        }
+    }
+
+    private void GoalCollisionDetection(Collider2D collision)
+    {
+        if (collision.gameObject.name == "PlayerGoal")
+        {
+            Debug.Log("Player's Goal");
+        }
+
+        if (collision.gameObject.name == "ComputerGoal")
+        {
+            Debug.Log("Computer's Goal");
         }
     }
 }

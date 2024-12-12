@@ -10,6 +10,8 @@ public class AI : MonoBehaviour
 
     private Ball ball;
 
+    [SerializeField] private bool isCompOn;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,16 +28,19 @@ public class AI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float step = aiSpeed * Time.fixedDeltaTime;
-
-        if (ballTransform.position.y > transform.position.y)
+        if (isCompOn)
         {
-            rb2d.linearVelocity = new Vector2(0.0f, step);
-        }
+            float step = aiSpeed * Time.fixedDeltaTime;
 
-        if (ballTransform.position.y < transform.position.y)
-        {
-            rb2d.linearVelocity = new Vector2(0.0f, -step);
+            if (ballTransform.position.y > transform.position.y)
+            {
+                rb2d.linearVelocity = new Vector2(0.0f, step);
+            }
+
+            if (ballTransform.position.y < transform.position.y)
+            {
+                rb2d.linearVelocity = new Vector2(0.0f, -step);
+            }
         }
     }
 
