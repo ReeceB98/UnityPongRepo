@@ -1050,8 +1050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024734fb1a7aea4e9bb2e537db3201c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerGoal: {fileID: 0}
-  computerGoal: {fileID: 0}
   playerScore: 0
   compScore: 0
   playerScoreText: {fileID: 442254164}
@@ -1647,10 +1645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c012c4a5bc3519c4690c6199a85b4085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballTransform: {fileID: 0}
   aiSpeed: 200
-  rb2d: {fileID: 0}
-  isCompOn: 1
+  isCompOn: 0
 --- !u!50 &1647249968
 Rigidbody2D:
   serializedVersion: 5

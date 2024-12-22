@@ -15,7 +15,7 @@ public class AI : MonoBehaviour
     private Ball ball;
 
     // Turn the AI on/off
-    private bool isCompOn = true;
+    [SerializeField] private bool isCompOn = true;
 
     private float zero = 0.0f;
 

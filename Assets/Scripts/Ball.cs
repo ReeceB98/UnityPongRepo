@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Net.Http.Headers;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Ball : MonoBehaviour
 {
@@ -14,6 +17,8 @@ public class Ball : MonoBehaviour
     // Indicates if the player took a shot at the ball
     private bool isPlayerShot = false;
     private bool isCompShot = false;
+    private bool playerScored = false;
+    private bool compScored = false;
 
     // Directional values
     private float up, down, right = 1.0f, left = -1.0f;
@@ -40,6 +45,11 @@ public class Ball : MonoBehaviour
         up = Random.Range(0.3f, 1.0f);
         down = Random.Range(-0.3f, -1.0f);
         midpoint = Random.Range(-0.25f, 0.25f);
+
+        if (playerScored)
+        {
+            StartCoroutine(BallDelay());
+        }
     }
 
     // Update is called once per frame
@@ -157,14 +167,30 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.name == "PlayerGoal")
         {
-            Debug.Log("Player's Goal");
             scoreManager.SetComputerScore(1);
+            playerScored = true;
+            ResetBallPosition();
         }
 
         if (collision.gameObject.name == "ComputerGoal")
         {
-            Debug.Log("Computer's Goal");
             scoreManager.SetPlayerScore(1);
+            compScored = true;
+            ResetBallPosition();
         }
+    }
+
+    private void ResetBallPosition()
+    {
+        transform.position = Vector2.zero;
+        ballSpeed = 0.0f;
+    }
+
+    private IEnumerator BallDelay()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Debug.Log("Delay Finished");
+        CurrentMoveValue(left, zero);
+        ballSpeed = 200.0f;
     }
 }
